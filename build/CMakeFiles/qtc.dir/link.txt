@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/qtc.dir/main.cpp.o -o qtc  /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 

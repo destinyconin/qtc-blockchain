@@ -1,0 +1,3 @@
+/workspaces/qtc-blockchain/build/CMakeFiles/qtc.dir
+/workspaces/qtc-blockchain/build/CMakeFiles/edit_cache.dir
+/workspaces/qtc-blockchain/build/CMakeFiles/rebuild_cache.dir
