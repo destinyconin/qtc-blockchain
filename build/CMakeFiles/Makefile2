@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /workspaces/qtc-blockchain/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/qtc.dir/all
+all: CMakeFiles/qtc_full.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/qtc.dir/clean
+clean: CMakeFiles/qtc_full.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/qtc.dir
+# Target rules for target CMakeFiles/qtc_full.dir
 
 # All Build rule for target.
-CMakeFiles/qtc.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc.dir/build.make CMakeFiles/qtc.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc.dir/build.make CMakeFiles/qtc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/qtc-blockchain/build/CMakeFiles --progress-num=1,2 "Built target qtc"
-.PHONY : CMakeFiles/qtc.dir/all
+CMakeFiles/qtc_full.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/qtc-blockchain/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target qtc_full"
+.PHONY : CMakeFiles/qtc_full.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/qtc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/qtc-blockchain/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/qtc.dir/all
+CMakeFiles/qtc_full.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/qtc-blockchain/build/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/qtc_full.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/qtc-blockchain/build/CMakeFiles 0
-.PHONY : CMakeFiles/qtc.dir/rule
+.PHONY : CMakeFiles/qtc_full.dir/rule
 
 # Convenience name for target.
-qtc: CMakeFiles/qtc.dir/rule
-.PHONY : qtc
+qtc_full: CMakeFiles/qtc_full.dir/rule
+.PHONY : qtc_full
 
 # clean rule for target.
-CMakeFiles/qtc.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc.dir/build.make CMakeFiles/qtc.dir/clean
-.PHONY : CMakeFiles/qtc.dir/clean
+CMakeFiles/qtc_full.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/clean
+.PHONY : CMakeFiles/qtc_full.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

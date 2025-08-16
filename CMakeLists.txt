@@ -1,13 +1,24 @@
 cmake_minimum_required(VERSION 3.10)
-project(QTC_Blockchain)
+project(QTC_Blockchain_Full)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
-# Find OpenSSL
+# Find required packages
 find_package(OpenSSL REQUIRED)
+find_package(Threads REQUIRED)
 
-# Add executable
-add_executable(qtc main.cpp)
+# Include directories
+include_directories(include)
 
-# Link OpenSSL libraries
-target_link_libraries(qtc OpenSSL::SSL OpenSSL::Crypto)
+# Collect all source files
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+
+# Create executable
+add_executable(qtc_full ${SOURCES})
+
+# Link libraries
+target_link_libraries(qtc_full
+    OpenSSL::SSL
+    OpenSSL::Crypto
+    Threads::Threads
+)

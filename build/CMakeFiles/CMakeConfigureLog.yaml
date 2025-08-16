@@ -529,3 +529,41 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "CMakeLists.txt:8 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/workspaces/qtc-blockchain/build/CMakeFiles/CMakeScratch/TryCompile-yP17rV"
+      binary: "/workspaces/qtc-blockchain/build/CMakeFiles/CMakeScratch/TryCompile-yP17rV"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/workspaces/qtc-blockchain/build/CMakeFiles/CMakeScratch/TryCompile-yP17rV'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_96657/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_96657.dir/build.make CMakeFiles/cmTC_96657.dir/build
+        gmake[1]: Entering directory '/workspaces/qtc-blockchain/build/CMakeFiles/CMakeScratch/TryCompile-yP17rV'
+        Building C object CMakeFiles/cmTC_96657.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_96657.dir/src.c.o -c /workspaces/qtc-blockchain/build/CMakeFiles/CMakeScratch/TryCompile-yP17rV/src.c
+        Linking C executable cmTC_96657
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_96657.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_96657.dir/src.c.o -o cmTC_96657 
+        gmake[1]: Leaving directory '/workspaces/qtc-blockchain/build/CMakeFiles/CMakeScratch/TryCompile-yP17rV'
+        
+      exitCode: 0
+...

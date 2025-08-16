@@ -117,41 +117,161 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named qtc
+# Target rules for targets named qtc_full
 
 # Build rule for target.
-qtc: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 qtc
-.PHONY : qtc
+qtc_full: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 qtc_full
+.PHONY : qtc_full
 
 # fast build rule for target.
-qtc/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc.dir/build.make CMakeFiles/qtc.dir/build
-.PHONY : qtc/fast
+qtc_full/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/build
+.PHONY : qtc_full/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+src/contracts/VirtualMachine.o: src/contracts/VirtualMachine.cpp.o
+.PHONY : src/contracts/VirtualMachine.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc.dir/build.make CMakeFiles/qtc.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/contracts/VirtualMachine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/contracts/VirtualMachine.cpp.o
+.PHONY : src/contracts/VirtualMachine.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+src/contracts/VirtualMachine.i: src/contracts/VirtualMachine.cpp.i
+.PHONY : src/contracts/VirtualMachine.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc.dir/build.make CMakeFiles/qtc.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/contracts/VirtualMachine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/contracts/VirtualMachine.cpp.i
+.PHONY : src/contracts/VirtualMachine.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+src/contracts/VirtualMachine.s: src/contracts/VirtualMachine.cpp.s
+.PHONY : src/contracts/VirtualMachine.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc.dir/build.make CMakeFiles/qtc.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/contracts/VirtualMachine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/contracts/VirtualMachine.cpp.s
+.PHONY : src/contracts/VirtualMachine.cpp.s
+
+src/crypto/ZKProof.o: src/crypto/ZKProof.cpp.o
+.PHONY : src/crypto/ZKProof.o
+
+# target to build an object file
+src/crypto/ZKProof.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/crypto/ZKProof.cpp.o
+.PHONY : src/crypto/ZKProof.cpp.o
+
+src/crypto/ZKProof.i: src/crypto/ZKProof.cpp.i
+.PHONY : src/crypto/ZKProof.i
+
+# target to preprocess a source file
+src/crypto/ZKProof.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/crypto/ZKProof.cpp.i
+.PHONY : src/crypto/ZKProof.cpp.i
+
+src/crypto/ZKProof.s: src/crypto/ZKProof.cpp.s
+.PHONY : src/crypto/ZKProof.s
+
+# target to generate assembly for a file
+src/crypto/ZKProof.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/crypto/ZKProof.cpp.s
+.PHONY : src/crypto/ZKProof.cpp.s
+
+src/main_advanced.o: src/main_advanced.cpp.o
+.PHONY : src/main_advanced.o
+
+# target to build an object file
+src/main_advanced.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/main_advanced.cpp.o
+.PHONY : src/main_advanced.cpp.o
+
+src/main_advanced.i: src/main_advanced.cpp.i
+.PHONY : src/main_advanced.i
+
+# target to preprocess a source file
+src/main_advanced.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/main_advanced.cpp.i
+.PHONY : src/main_advanced.cpp.i
+
+src/main_advanced.s: src/main_advanced.cpp.s
+.PHONY : src/main_advanced.s
+
+# target to generate assembly for a file
+src/main_advanced.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/main_advanced.cpp.s
+.PHONY : src/main_advanced.cpp.s
+
+src/main_full.o: src/main_full.cpp.o
+.PHONY : src/main_full.o
+
+# target to build an object file
+src/main_full.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/main_full.cpp.o
+.PHONY : src/main_full.cpp.o
+
+src/main_full.i: src/main_full.cpp.i
+.PHONY : src/main_full.i
+
+# target to preprocess a source file
+src/main_full.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/main_full.cpp.i
+.PHONY : src/main_full.cpp.i
+
+src/main_full.s: src/main_full.cpp.s
+.PHONY : src/main_full.s
+
+# target to generate assembly for a file
+src/main_full.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/main_full.cpp.s
+.PHONY : src/main_full.cpp.s
+
+src/network/P2PNode.o: src/network/P2PNode.cpp.o
+.PHONY : src/network/P2PNode.o
+
+# target to build an object file
+src/network/P2PNode.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/network/P2PNode.cpp.o
+.PHONY : src/network/P2PNode.cpp.o
+
+src/network/P2PNode.i: src/network/P2PNode.cpp.i
+.PHONY : src/network/P2PNode.i
+
+# target to preprocess a source file
+src/network/P2PNode.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/network/P2PNode.cpp.i
+.PHONY : src/network/P2PNode.cpp.i
+
+src/network/P2PNode.s: src/network/P2PNode.cpp.s
+.PHONY : src/network/P2PNode.s
+
+# target to generate assembly for a file
+src/network/P2PNode.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/network/P2PNode.cpp.s
+.PHONY : src/network/P2PNode.cpp.s
+
+src/rpc/RPCServer.o: src/rpc/RPCServer.cpp.o
+.PHONY : src/rpc/RPCServer.o
+
+# target to build an object file
+src/rpc/RPCServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/rpc/RPCServer.cpp.o
+.PHONY : src/rpc/RPCServer.cpp.o
+
+src/rpc/RPCServer.i: src/rpc/RPCServer.cpp.i
+.PHONY : src/rpc/RPCServer.i
+
+# target to preprocess a source file
+src/rpc/RPCServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/rpc/RPCServer.cpp.i
+.PHONY : src/rpc/RPCServer.cpp.i
+
+src/rpc/RPCServer.s: src/rpc/RPCServer.cpp.s
+.PHONY : src/rpc/RPCServer.s
+
+# target to generate assembly for a file
+src/rpc/RPCServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qtc_full.dir/build.make CMakeFiles/qtc_full.dir/src/rpc/RPCServer.cpp.s
+.PHONY : src/rpc/RPCServer.cpp.s
 
 # Help Target
 help:
@@ -161,10 +281,25 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... qtc"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... qtc_full"
+	@echo "... src/contracts/VirtualMachine.o"
+	@echo "... src/contracts/VirtualMachine.i"
+	@echo "... src/contracts/VirtualMachine.s"
+	@echo "... src/crypto/ZKProof.o"
+	@echo "... src/crypto/ZKProof.i"
+	@echo "... src/crypto/ZKProof.s"
+	@echo "... src/main_advanced.o"
+	@echo "... src/main_advanced.i"
+	@echo "... src/main_advanced.s"
+	@echo "... src/main_full.o"
+	@echo "... src/main_full.i"
+	@echo "... src/main_full.s"
+	@echo "... src/network/P2PNode.o"
+	@echo "... src/network/P2PNode.i"
+	@echo "... src/network/P2PNode.s"
+	@echo "... src/rpc/RPCServer.o"
+	@echo "... src/rpc/RPCServer.i"
+	@echo "... src/rpc/RPCServer.s"
 .PHONY : help
 
 
