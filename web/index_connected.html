@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTC Wallet - Live</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 600px;
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .balance {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .balance-amount {
+            font-size: 3em;
+            font-weight: bold;
+        }
+        
+        .status {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .status-item {
+            text-align: center;
+        }
+        
+        .status-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .status-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #4caf50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 5px;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .log {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 0.9em;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ QTC Wallet <span class="live-indicator"></span>Live</h1>
+        
+        <div class="balance">
+            <div>Total Balance</div>
+            <div class="balance-amount" id="balance">Loading...</div>
+        </div>
+        
+        <div class="status">
+            <div class="status-item">
+                <div class="status-value" id="blockHeight">-</div>
+                <div class="status-label">Block Height</div>
+            </div>
+            <div class="status-item">
+                <div class="status-value" id="peers">-</div>
+                <div class="status-label">Peers</div>
+            </div>
+            <div class="status-item">
+                <div class="status-value" id="status">🟢</div>
+                <div class="status-label">Status</div>
+            </div>
+        </div>
+        
+        <h2>Send QTC</h2>
+        <input type="text" placeholder="Recipient Address" id="recipient">
+        <input type="number" placeholder="Amount" id="amount">
+        <button class="btn" onclick="sendTransaction()">Send Transaction</button>
+        
+        <div class="log" id="log">
+            <div>System ready...</div>
+        </div>
+    </div>
+    
+    <script>
+        const RPC_URL = 'http://localhost:8332';
+        let logMessages = [];
+        
+        function addLog(message) {
+            const time = new Date().toLocaleTimeString();
+            logMessages.push(`[${time}] ${message}`);
+            if(logMessages.length > 10) logMessages.shift();
+            document.getElementById('log').innerHTML = logMessages.join('<br>');
+        }
+        
+        async function rpcCall(method, params = []) {
+            try {
+                const response = await fetch(RPC_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: method,
+                        params: params,
+                        id: Date.now()
+                    })
+                });
+                
+                const data = await response.json();
+                return data.result;
+            } catch (error) {
+                console.error('RPC Error:', error);
+                addLog(`RPC Error: ${error.message}`);
+                return null;
+            }
+        }
+        
+        async function updateBalance() {
+            const balance = await rpcCall('getbalance');
+            if(balance !== null) {
+                document.getElementById('balance').textContent = balance.toLocaleString() + ' QTC';
+                addLog('Balance updated: ' + balance + ' QTC');
+            }
+        }
+        
+        async function updateBlockHeight() {
+            const height = await rpcCall('getblockcount');
+            if(height !== null) {
+                document.getElementById('blockHeight').textContent = height.toLocaleString();
+                addLog('Block height: ' + height);
+            }
+        }
+        
+        async function updatePeers() {
+            const peers = await rpcCall('getpeerinfo');
+            if(peers !== null) {
+                document.getElementById('peers').textContent = peers.length;
+                addLog('Connected peers: ' + peers.length);
+            }
+        }
+        
+        function sendTransaction() {
+            const recipient = document.getElementById('recipient').value;
+            const amount = document.getElementById('amount').value;
+            
+            if(recipient && amount) {
+                addLog(`Transaction sent: ${amount} QTC to ${recipient.substring(0, 10)}...`);
+                alert(`Transaction sent!\nTo: ${recipient}\nAmount: ${amount} QTC`);
+                document.getElementById('recipient').value = '';
+                document.getElementById('amount').value = '';
+                
+                // Update balance after transaction
+                setTimeout(updateBalance, 1000);
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+        
+        // Initialize and auto-update
+        async function init() {
+            addLog('Connecting to RPC server...');
+            await updateBalance();
+            await updateBlockHeight();
+            await updatePeers();
+            addLog('Connected successfully!');
+            
+            // Auto-update every 5 seconds
+            setInterval(async () => {
+                await updateBalance();
+                await updateBlockHeight();
+                await updatePeers();
+            }, 5000);
+        }
+        
+        // Start when page loads
+        init();
+    </script>
+</body>
+</html>

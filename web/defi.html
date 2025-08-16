@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTC DeFi Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            color: white;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2a5298;
+        }
+        
+        .defi-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .defi-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .defi-card h2 {
+            color: #2a5298;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .pool-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .pool-stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        
+        .apr-badge {
+            background: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .transaction-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .transaction-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1 style="text-align: center; font-size: 2.5em;">🏦 QTC DeFi Platform</h1>
+            <p style="text-align: center; margin-top: 10px; opacity: 0.9;">Decentralized Finance Ecosystem</p>
+            
+            <div class="nav">
+                <a href="#" class="nav-item active" onclick="showTab('swap')">🔄 Swap</a>
+                <a href="#" class="nav-item" onclick="showTab('liquidity')">💧 Liquidity</a>
+                <a href="#" class="nav-item" onclick="showTab('lending')">💰 Lending</a>
+                <a href="#" class="nav-item" onclick="showTab('staking')">🔒 Staking</a>
+                <a href="#" class="nav-item" onclick="showTab('farming')">🌾 Farming</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Value Locked</div>
+                <div class="stat-value">$125.5M</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">24h Volume</div>
+                <div class="stat-value">$8.2M</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Users</div>
+                <div class="stat-value">12,847</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">APY Range</div>
+                <div class="stat-value">2% - 85%</div>
+            </div>
+        </div>
+        
+        <!-- Swap Tab -->
+        <div id="swap" class="tab-content active">
+            <div class="defi-section">
+                <div class="defi-card">
+                    <h2><span class="icon">🔄</span> Swap Tokens</h2>
+                    
+                    <div class="input-group">
+                        <label>From</label>
+                        <select id="fromToken">
+                            <option>QTC</option>
+                            <option>USDT</option>
+                            <option>WBTC</option>
+                            <option>WETH</option>
+                        </select>
+                        <input type="number" placeholder="0.0" id="fromAmount">
+                    </div>
+                    
+                    <div style="text-align: center; margin: 10px 0;">⬇️</div>
+                    
+                    <div class="input-group">
+                        <label>To</label>
+                        <select id="toToken">
+                            <option>USDT</option>
+                            <option>QTC</option>
+                            <option>WBTC</option>
+                            <option>WETH</option>
+                        </select>
+                        <input type="number" placeholder="0.0" id="toAmount" readonly>
+                    </div>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>Rate</span>
+                            <span>1 QTC = 0.5 USDT</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>Slippage</span>
+                            <span>0.3%</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>Fee</span>
+                            <span>0.3%</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="performSwap()">Swap</button>
+                </div>
+                
+                <div class="defi-card">
+                    <h2><span class="icon">📊</span> Top Pools</h2>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>QTC/USDT</span>
+                            <span class="apr-badge">15.2% APR</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>WBTC/USDT</span>
+                            <span class="apr-badge">12.8% APR</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>WETH/USDT</span>
+                            <span class="apr-badge">18.5% APR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Liquidity Tab -->
+        <div id="liquidity" class="tab-content">
+            <div class="defi-section">
+                <div class="defi-card">
+                    <h2><span class="icon">💧</span> Add Liquidity</h2>
+                    
+                    <div class="input-group">
+                        <label>Token A</label>
+                        <select>
+                            <option>QTC</option>
+                            <option>WBTC</option>
+                            <option>WETH</option>
+                        </select>
+                        <input type="number" placeholder="0.0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Token B</label>
+                        <select>
+                            <option>USDT</option>
+                        </select>
+                        <input type="number" placeholder="0.0">
+                    </div>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>Pool Share</span>
+                            <span>25.5%</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>LP Tokens</span>
+                            <span>1,245.67</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn">Add Liquidity</button>
+                </div>
+                
+                <div class="defi-card">
+                    <h2><span class="icon">📈</span> Your Positions</h2>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>QTC/USDT</span>
+                            <span>$5,245</span>
+                        </div>
+                        <button class="btn btn-secondary" style="margin-top: 10px;">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lending Tab -->
+        <div id="lending" class="tab-content">
+            <div class="defi-section">
+                <div class="defi-card">
+                    <h2><span class="icon">💰</span> Supply</h2>
+                    
+                    <div class="input-group">
+                        <label>Asset</label>
+                        <select>
+                            <option>QTC (3.5% APY)</option>
+                            <option>USDT (2.8% APY)</option>
+                            <option>WBTC (1.2% APY)</option>
+                        </select>
+                        <input type="number" placeholder="Amount to supply">
+                    </div>
+                    
+                    <button class="btn">Supply</button>
+                    
+                    <h3 style="margin-top: 30px;">Your Supplies</h3>
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>QTC</span>
+                            <span>1,000 ($500)</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>APY</span>
+                            <span style="color: green;">3.5%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="defi-card">
+                    <h2><span class="icon">🏦</span> Borrow</h2>
+                    
+                    <div class="input-group">
+                        <label>Asset</label>
+                        <select>
+                            <option>USDT (5.2% APR)</option>
+                            <option>QTC (6.8% APR)</option>
+                        </select>
+                        <input type="number" placeholder="Amount to borrow">
+                    </div>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>Collateral</span>
+                            <span>$500</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>Max Borrow</span>
+                            <span>$375</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>Health Factor</span>
+                            <span style="color: green;">2.15</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn">Borrow</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Staking Tab -->
+        <div id="staking" class="tab-content">
+            <div class="defi-section">
+                <div class="defi-card">
+                    <h2><span class="icon">🔒</span> Stake QTC</h2>
+                    
+                    <div class="input-group">
+                        <label>Amount</label>
+                        <input type="number" placeholder="QTC to stake">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Lock Period</label>
+                        <select>
+                            <option>30 days (5% APY)</option>
+                            <option>90 days (10% APY)</option>
+                            <option>180 days (15% APY)</option>
+                            <option>365 days (20% APY)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn">Stake</button>
+                </div>
+                
+                <div class="defi-card">
+                    <h2><span class="icon">💎</span> Your Stakes</h2>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>Staked</span>
+                            <span>5,000 QTC</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>Lock ends</span>
+                            <span>25 days</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>Rewards</span>
+                            <span>125 QTC</span>
+                        </div>
+                        <button class="btn btn-secondary" style="margin-top: 10px;">Claim Rewards</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Farming Tab -->
+        <div id="farming" class="tab-content">
+            <div class="defi-section">
+                <div class="defi-card">
+                    <h2><span class="icon">🌾</span> Yield Farms</h2>
+                    
+                    <div class="pool-info">
+                        <h3>QTC-USDT LP</h3>
+                        <div class="pool-stat">
+                            <span>APR</span>
+                            <span class="apr-badge">85.2%</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>TVL</span>
+                            <span>$2.5M</span>
+                        </div>
+                        <input type="number" placeholder="LP tokens to stake" style="margin: 10px 0;">
+                        <button class="btn">Stake LP</button>
+                    </div>
+                    
+                    <div class="pool-info">
+                        <h3>WBTC-USDT LP</h3>
+                        <div class="pool-stat">
+                            <span>APR</span>
+                            <span class="apr-badge">62.8%</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>TVL</span>
+                            <span>$1.8M</span>
+                        </div>
+                        <button class="btn">Stake LP</button>
+                    </div>
+                </div>
+                
+                <div class="defi-card">
+                    <h2><span class="icon">🎁</span> Your Farms</h2>
+                    
+                    <div class="pool-info">
+                        <div class="pool-stat">
+                            <span>QTC-USDT LP</span>
+                            <span>100 LP</span>
+                        </div>
+                        <div class="pool-stat">
+                            <span>Pending Rewards</span>
+                            <span>25.5 QTC</span>
+                        </div>
+                        <button class="btn">Harvest</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active to clicked nav item
+            event.target.classList.add('active');
+        }
+        
+        function performSwap() {
+            const fromToken = document.getElementById('fromToken').value;
+            const fromAmount = document.getElementById('fromAmount').value;
+            const toToken = document.getElementById('toToken').value;
+            
+            if(fromAmount > 0) {
+                // Calculate output (simplified)
+                const rate = 0.5; // 1 QTC = 0.5 USDT
+                const output = fromAmount * rate * 0.997; // 0.3% fee
+                document.getElementById('toAmount').value = output.toFixed(2);
+                
+                alert(`Swap successful!\n${fromAmount} ${fromToken} → ${output.toFixed(2)} ${toToken}`);
+            }
+        }
+        
+        // Update prices periodically
+        setInterval(() => {
+            // Simulate price updates
+            const tvl = document.querySelector('.stat-value');
+            if(tvl) {
+                const currentValue = parseFloat(tvl.textContent.replace(', '').replace('M', ''));
+                const newValue = (currentValue + (Math.random() - 0.5) * 0.1).toFixed(1);
+                tvl.textContent = `${newValue}M`;
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
