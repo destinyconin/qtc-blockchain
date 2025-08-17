@@ -1,0 +1,3 @@
+@echo off
+echo Starting QTC Blockchain Node...
+start QTC_BLOCKCHAIN.bat
